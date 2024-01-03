@@ -1,0 +1,132 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+
+<WindowManager>:
+    transition: NoTransition()
+
+
+WindowManager:
+    id: window_manager
+    MainWindow
+
+
+<MainWindow>:
+    name: "main_window"
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 50
+        padding: 60
+        valign: 'center'
+        size: root.width, root.height
+
+        MDLabel:
+            text: "Label Creator"
+            font_style: "H5"
+            pos_hint: {"center_x": .5, "center_y": .8}
+            size_hint_y: 0.1
+            halign: 'center'
+
+        MDLabel:
+            id: file_name
+            font_style: "Subtitle2"
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            size_hint_y: 0.05
+            halign: 'center'
+
+        Image:
+            id: image_label
+            padding: 20
+            size_hint_x: 1
+            size_hint_y: 0.6
+            allow_stretch: True
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+        BoxLayout:
+            orientation: 'horizontal'
+            pos_hint: {"center_x": .5, "center_y": .5}
+            halign: 'center'
+            size_hint_x: 1
+            size_hint_y: 0.1
+            spacing: 20
+            padding: 50
+
+            MDRaisedButton:
+                id: angry_button
+                text: "Angry"
+                font_style: "Subtitle2"
+                theme_text_color: "Custom"
+                pos_hint: {"center_x": 0.5, "center_y": .8}
+                size_hint_x: 0.05
+                on_release:
+                    app.select_emotion("angry")
+
+            MDRaisedButton:
+                id: disgust_button
+                text: "Disgust"
+                font_style: "Subtitle2"
+                theme_text_color: "Custom"
+                pos_hint: {"center_x": 0.5, "center_y": .8}
+                size_hint_x: 0.05
+                on_release:
+                    app.select_emotion("disgust")
+
+            MDRaisedButton:
+                id: fear_button
+                text: "Fear"
+                font_style: "Subtitle2"
+                theme_text_color: "Custom"
+                pos_hint: {"center_x": 0.5, "center_y": .8}
+                size_hint_x: 0.05
+                on_release:
+                    app.select_emotion("fear")
+
+            MDRaisedButton:
+                id: happy_button
+                text: "Happy"
+                font_style: "Subtitle2"
+                theme_text_color: "Custom"
+                pos_hint: {"center_x": 0.5, "center_y": .8}
+                size_hint_x: 0.05
+                on_release:
+                    app.select_emotion("happy")
+
+            MDRaisedButton:
+                id: neutral_button
+                text: "Neutral"
+                font_style: "Subtitle2"
+                theme_text_color: "Custom"
+                pos_hint: {"center_x": 0.5, "center_y": .8}
+                size_hint_x: 0.05
+                on_release:
+                    app.select_emotion("neutral")
+
+            MDRaisedButton:
+                id: sad_button
+                text: "Sad"
+                font_style: "Subtitle2"
+                theme_text_color: "Custom"
+                pos_hint: {"center_x": 0.5, "center_y": .8}
+                size_hint_x: 0.05
+                on_release:
+                    app.select_emotion("sad")
+
+            MDRaisedButton:
+                id: surprise_button
+                text: "Surprise"
+                font_style: "Subtitle2"
+                theme_text_color: "Custom"
+                pos_hint: {"center_x": 0.5, "center_y": .8}
+                size_hint_x: 0.05
+                on_release:
+                    app.select_emotion("surprise")
+
+        MDRaisedButton:
+            id: confirm_button
+            text: "Next"
+            font_style: "Subtitle2"
+            theme_text_color: "Custom"
+            pos_hint: {"center_x": 0.5, "center_y": .8}
+            size_hint_x: 0.2
+            on_release:
+                app.confirm_emotions()
