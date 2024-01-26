@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import os
+import seaborn as sns
 
 from pandas.io.formats.style import Styler
 from typing import List, Dict
@@ -40,7 +41,7 @@ def calculate_categories_distribution_multiple_datasets(dataset_paths: List, cat
     return multiple_distribution
 
 
-def plot_categories_distribution(dataset_paths: List, categories: List) -> None:
+def plot_categories_distribution(dataset_paths: List, categories: List, design: str = "old") -> None:
     distribution = calculate_categories_distribution_multiple_datasets(
         dataset_paths=dataset_paths,
         categories=categories
@@ -48,13 +49,29 @@ def plot_categories_distribution(dataset_paths: List, categories: List) -> None:
 
     sample_counts = list(distribution.values())
 
-    plt.bar(categories, sample_counts, facecolor='#ed8932')
-    plt.xlabel('Klasa', fontsize=13)
-    plt.ylabel('Liczba próbek', fontsize=13)
-    plt.title('Rozkład liczności próbek w klasach', fontsize=14)
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
+    if design == "new":
+        categories = ["zły", "zniesmaczony", "przestraszony", "szczęśliwy", "neutralny", "smutny", "zaskoczony"]
+        sns.set(style="whitegrid")
+        plt.figure(figsize=(10, 5))
+
+        sorted_categories_with_counts = sorted(zip(categories, sample_counts), key=lambda x: x[0])
+        sorted_categories, sorted_counts = zip(*sorted_categories_with_counts)
+
+        plt.bar(sorted_categories, sorted_counts, facecolor='#ed8932')
+        plt.xlabel('Klasa', fontsize=14, fontweight='bold')
+        plt.ylabel('Liczba próbek', fontsize=14, fontweight='bold')
+        plt.xticks(fontsize=12)  # Increase font size for class names
+        plt.yticks(fontsize=12)
+        plt.grid(True)
+        plt.show()
+    else:
+        plt.bar(categories, sample_counts, facecolor='#ed8932')
+        plt.xlabel('Klasa', fontsize=13)
+        plt.ylabel('Liczba próbek', fontsize=13)
+        plt.title('Rozkład liczności próbek w klasach', fontsize=14)
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()
 
 
 def print_categories_distribution_table(dataset_paths: List, categories: List) -> Styler:

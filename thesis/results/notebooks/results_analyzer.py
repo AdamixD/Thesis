@@ -114,13 +114,16 @@ class ResultsAnalyzer:
             ylabel = "Odchylenie standardowe"
 
         custom_labels = [f"{ylabel} (standardowa funkcja straty)", f"{ylabel} (ważona funkcja straty)"]
-        colors = plt.cm.viridis(np.linspace(0, 1, 2))
+        # colors = plt.cm.viridis(np.linspace(0, 1, 2))
 
         plt.figure(figsize=figure_size)
         sns.set(style="whitegrid")
 
-        plt.plot(df['Epoch'], df[df.columns[0]], label=custom_labels[0], color=colors[0], linestyle='--', marker='o')
-        plt.plot(df['Epoch'], df[df.columns[1]], label=custom_labels[1], color=colors[1], linestyle='--', marker='o')
+        # plt.plot(df['Epoch'], df[df.columns[0]], label=custom_labels[0], color=colors[0], linestyle='--', marker='o')
+        # plt.plot(df['Epoch'], df[df.columns[1]], label=custom_labels[1], color=colors[1], linestyle='--', marker='o')
+
+        plt.plot(df['Epoch'], df[df.columns[0]], label=custom_labels[0], linestyle='--', marker='o')
+        plt.plot(df['Epoch'], df[df.columns[1]], label=custom_labels[1], linestyle='--', marker='o')
 
         plt.xlabel('Epoka', fontsize=14, fontweight='bold')
         plt.ylabel(ylabel, fontsize=14, fontweight='bold')
@@ -144,13 +147,16 @@ class ResultsAnalyzer:
             ylabel = "Strata"
 
         custom_labels = [f"{ylabel} (zbiór treningowy)", f"{ylabel} (zbiór walidacyjny)"]
-        colors = plt.cm.viridis(np.linspace(0, 1, 2))
+        # colors = plt.cm.viridis(np.linspace(0, 1, 2))
 
         plt.figure(figsize=self.figure_size)
         sns.set(style="whitegrid")
 
-        plt.plot(self.df['Epoch'], self.df[metric1], label=custom_labels[0], color=colors[0], linestyle='--', marker='o')
-        plt.plot(self.df['Epoch'], self.df[metric2], label=custom_labels[1], color=colors[1], linestyle='--', marker='o')
+        # plt.plot(self.df['Epoch'], self.df[metric1], label=custom_labels[0], color=colors[0], linestyle='--', marker='o')
+        # plt.plot(self.df['Epoch'], self.df[metric2], label=custom_labels[1], color=colors[1], linestyle='--', marker='o')
+
+        plt.plot(self.df['Epoch'], self.df[metric1], label=custom_labels[0], linestyle='--', marker='o')
+        plt.plot(self.df['Epoch'], self.df[metric2], label=custom_labels[1], linestyle='--', marker='o')
 
         plt.axvspan(min_val_loss_epoch, self.df['Epoch'].max(), color='blue', alpha=0.05)
         plt.xlabel('Epoka', fontsize=14, fontweight='bold')
@@ -182,9 +188,23 @@ class ResultsAnalyzer:
         plt.plot(self.df['Epoch'], self.df[f"{dataset_type_prefix}{metric}"], label="sumarycznie", color=colors[0], linewidth=3, linestyle='--', marker='o')
 
         i = 1
-        for category in self.categories:
+
+        categories = ["neutral", "fear", "sad", "happy", "surprise", "angry", "disgust"]
+
+        names_mapping = {
+            "angry": "zły",
+            "disgust": "zniesmaczony",
+            "fear": "przestraszony",
+            "happy": "szczęśliwy",
+            "neutral": "neutralny",
+            "sad": "smutny",
+            "surprise": "zaskoczony",
+        }
+
+        # for category in self.categories:
+        for category in categories:
             category_metric = f"{dataset_type_prefix}{metric}_{category}"
-            plt.plot(self.df['Epoch'], self.df[category_metric], label=category, color=colors[i], linestyle='--', marker='o')
+            plt.plot(self.df['Epoch'], self.df[category_metric], label=names_mapping[category], color=colors[i], linestyle='--', marker='o')
             i += 1
 
         plt.grid(color='gray', linestyle='--', linewidth=0.5)
